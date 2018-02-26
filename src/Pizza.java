@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static java.lang.Math.floor;
+
 public class Pizza {
     Scanner scan = new Scanner(System.in);
     int R;
@@ -48,10 +50,18 @@ public class Pizza {
 
     void solver(int[] cuts, int score) {
         int size = (cuts[2] - cuts[0])*(cuts[3] - cuts[1]);
+
         if(size <= H) {
             if((score >= - (size - 2*L)) && score <= (size - 2*L)) {
                 solution.add(cuts);
             }
+        }
+
+        int horizontalCut = (int) (floor(((double)(cuts[2] - cuts[0])) /2.0) + cuts[0]);
+        int verticalCut = (int) (floor(((double)(cuts[3] - cuts[1])) /2.0) + cuts[1]);
+
+        for (int i = cuts[0]; i < horizontalCut; i++) {
+            
         }
     }
 
