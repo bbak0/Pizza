@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Pizza {
@@ -7,6 +8,7 @@ public class Pizza {
     int L;
     int H;
     int[][] pizza; //M = 1, T = -1
+    ArrayList<int[]> solution = new ArrayList<>();
 
     void readinator() {
         R = scan.nextInt();
@@ -42,6 +44,15 @@ public class Pizza {
     void test(){
         readinator();
         printPizza(pizza);
+    }
+
+    void solver(int[] cuts, int score) {
+        int size = (cuts[2] - cuts[0])*(cuts[3] - cuts[1]);
+        if(size <= H) {
+            if((score >= - (size - 2*L)) && score <= (size - 2*L)) {
+                solution.add(cuts);
+            }
+        }
     }
 
     public static void main(String[] args){
