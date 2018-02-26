@@ -6,7 +6,7 @@ public class Pizza {
     int C;
     int L;
     int H;
-    int[][] pizza;
+    int[][] pizza; //M = 1, T = -1
 
     void readinator() {
         R = scan.nextInt();
@@ -15,13 +15,37 @@ public class Pizza {
         H = scan.nextInt();
 
         pizza = new int[R][C];
-
+        System.out.println(R + " " + C);
         for (int i = 0; i < R; i++) {
-            for (int j = 0; i < C; i++) {
-                if(scan.next() == "T" {
-
+            String line = scan.next();
+            char[] charArray = line.toCharArray();
+            for (int j = 0; j < C; j++) {
+                if(charArray[i] == 'T') {
+                    pizza[i][j] = -1;
+                } else {
+                    pizza[i][j] = 1;
                 }
             }
         }
     }
+
+    void printPizza(int[][] p){
+        for(int i = 0; i < p.length; i++){
+            for (int j = 0; j < p[0].length; j++){
+                System.out.print(p[i][j] + " | ");
+            }
+            System.out.println("|");
+
+        }
+    }
+
+    void test(){
+        readinator();
+        printPizza(pizza);
+    }
+
+    public static void main(String[] args){
+        new Pizza().test();
+    }
+
 }
