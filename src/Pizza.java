@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static java.lang.Math.abs;
 import static java.lang.Math.floor;
 
 public class Pizza {
@@ -60,8 +61,43 @@ public class Pizza {
         int horizontalCut = (int) (floor(((double)(cuts[2] - cuts[0])) /2.0) + cuts[0]);
         int verticalCut = (int) (floor(((double)(cuts[3] - cuts[1])) /2.0) + cuts[1]);
 
+        int upperLeftCorner = 0;
+        int upperRightCorner = 0;
+        int bottomLeftCorner = 0;
+        int bottomRightCorner = 0;
+
         for (int i = cuts[0]; i < horizontalCut; i++) {
-            
+            for (int j = cuts[1]; j < verticalCut; j++) {
+                upperLeftCorner += pizza[i][j];
+            }
+        }
+
+        for (int i = horizontalCut; i < cuts[2]; i++) {
+            for (int j = cuts[1]; j < verticalCut; j++) {
+                upperRightCorner += pizza[i][j];
+            }
+        }
+
+        for (int i = cuts[0]; i < horizontalCut; i++) {
+            for (int j = verticalCut; j < cuts[3]; j++) {
+                bottomLeftCorner += pizza[i][j];
+            }
+        }
+
+        bottomRightCorner = score - (upperLeftCorner + upperRightCorner + bottomRightCorner);
+
+
+        if(abs(upperLeftCorner + upperRightCorner) + abs(bottomLeftCorner + bottomRightCorner) <
+                abs(upperLeftCorner + bottomLeftCorner) + abs(upperRightCorner + bottomRightCorner)) {
+            int[] upperSlice = {cuts[0], cuts[1], horizontalCut, cuts[3]};
+            int[] lowerSlice = {horizontalCut, cuts[1], cuts[2], cuts[3]};
+            solver(upperSlice, upperLeftCorner + upperRightCorner);
+            solver(upperSlice, bottomLeftCorner + bottomRightCorner);
+        } else {
+            int[] rightSlice = {cuts[0], cuts[1], cuts[2], verticalCut};
+            int[] leftSlice = {cuts[0], verticalCut, cuts[2], cuts[3]};
+            solver(rightSlice, upperRightCorner + bottomRightCorner);
+            solver(leftSlice, upperLeftCorner + bottomLeftCorner );
         }
     }
 
